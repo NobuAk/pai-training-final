@@ -2,11 +2,13 @@
 
 ROS 2、rosbag2、LeRobotを活用したロボット学習パイプラインの実装記録です。
 
-## Overview
+## 概要
 
-Physical AIに関する学習・実装を目的として、ロボットのデータ収集からデータ変換、模倣学習、推論までの一連の処理に取り組みました。
+Physical AIに関する学習と実装を目的として、ロボットのデータ収集からデータ変換、模倣学習、推論までの一連の処理に取り組みました。
 
-## Project Structure
+本プロジェクトでは、ROS 2で収集したロボットの動作データをrosbag2からLeRobot形式に変換し、Diffusion Policyによる模倣学習と、学習済みモデルを用いた推論・ロボット制御の検証を行います。
+
+## ディレクトリ構成
 
 ```text
 .
@@ -28,59 +30,68 @@ Physical AIに関する学習・実装を目的として、ロボットのデー
 └── pixi.lock
 ```
 
-## Implementation
+## 実装内容
 
-### 1. Data Conversion
+### 1. データ変換
 
-- rosbag2からLeRobot形式へのデータ変換
-- ロボットの特徴量定義
-- データセットの構築
+- rosbag2で記録したデータをLeRobot形式に変換
+- ロボットの関節・センサ情報などの特徴量定義
+- 模倣学習に利用するデータセットの構築
 
-### 2. Dataset Visualization
+### 2. データセットの可視化
 
 - 変換したデータセットの可視化
-- データの確認・検証
+- 収集データの確認と検証
+- 学習に使用するデータの品質確認
 
-### 3. Imitation Learning
+### 3. 模倣学習
 
-- Diffusion Policyの学習
+- Diffusion Policyによる模倣学習
 - 学習パラメータの設定
+- ロボットの動作データを用いたPolicyの学習
 
-### 4. Inference
+### 4. 推論・ロボット制御
 
 - 学習済みPolicyによる推論
-- ロボット制御の検証
-- Policyのデバッグ
+- 推論結果を用いたロボット制御の検証
+- Policyの動作確認・デバッグ
 
-## Environment
+## 使用技術・開発環境
 
 - Ubuntu
 - Python
 - ROS 2
+- rosbag2
 - Pixi
 - LeRobot
+- Diffusion Policy
 
-## Setup
+## 環境構築
+
+Pixiを使用して開発環境を構築します。
 
 ```bash
 pixi install
 ```
 
-## Usage
+## 実行方法
 
-各処理の実行方法は `pyproject.toml` のPixiタスク定義を参照してください。
+利用可能なタスクの一覧は、以下のコマンドで確認できます。
 
 ```bash
 pixi task list
 ```
 
-## Repository
+各処理の実行方法は `pyproject.toml` に定義されています。
 
-LeRobot is managed as a Git submodule.
+## 外部ライブラリ
 
-https://github.com/huggingface/lerobot
+本プロジェクトでは、ロボット学習フレームワークとしてHugging FaceのLeRobotを使用しています。
 
-## License
+- [LeRobot - GitHub](https://github.com/huggingface/lerobot)
 
-See the licenses of the respective dependencies and source projects.
+LeRobotはGit Submoduleとして管理しています。
 
+## ライセンス
+
+本プロジェクトで使用している外部ライブラリおよび関連コードについては、それぞれのライセンスと利用条件に従います。
